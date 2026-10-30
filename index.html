@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Colleen Fulton, product design engineer. Experience across robotics, consumer products, and design software.">
+<title>Colleen Fulton, Product Design Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. THEME & DESIGN TOKENS
+   All colors and the serif font live here. Change a color once
+   and it updates everywhere.
+   --bg page, --ink text, --mute secondary text, --line borders,
+   --tint soft fills, --acc accent (purple), --atint accent fill
+   ============================================================ */
+:root {
+  /* keeps content clear of phone notches and system bars */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --serif: "Newsreader", Georgia, serif;
+  --bg: #F5F4F2;
+  --ink: #211E26;
+  --mute: #6F6B70;
+  --line: #E6E3DF;
+  --tint: #EEECE8;
+  --acc: #7261A0;
+  --atint: #ECE8F1
+}
+
+/* Dark theme: follows the visitor's system setting */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17161B;
+    --ink: #ECEBF1;
+    --mute: #A3A0AF;
+    --line: #2C2A33;
+    --tint: #212027;
+    --acc: #B4A8E0;
+    --atint: #2B2837
+  }
+}
+
+/* ============================================================
+   2. BASE STYLES
+   ============================================================ */
+* {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 15px/1.6 "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  text-align: left
+}
+
+:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 2px;
+  border-radius: 4px
+}
+
+/* ============================================================
+   3. PAGE LAYOUT
+   Two columns: main content (left) and the project rail (right),
+   centered in a container that stops growing at 1240px.
+   ============================================================ */
+.wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  min-height: 100vh;
+  max-width: 1240px;
+  margin: 0 auto
+}
+
+main {
+  padding: 56px clamp(24px, 6vw, 96px) 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px
+}
+
+/* ============================================================
+   4. HEADER: name, tabs, intro line
+   ============================================================ */
+h1 {
+  font: 400 28px/1.15 var(--serif);
+  margin: 0;
+  letter-spacing: -.01em
+}
+
+.role {
+  margin: 10px 0 0;
+  font: 500 12px/1 "Instrument Sans", system-ui, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mute)
+}
+
+/* Tab row: Experience, About, and the open project's tab */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 -10px;
+  overflow-x: auto;
+  scrollbar-width: none
+}
+
+.tabs>* {
+  flex: none
+}
+
+.tabs button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--mute);
+  font-weight: 500;
+  white-space: nowrap
+}
+
+.tabs button:hover {
+  color: var(--ink)
+}
+
+.tabs button[aria-selected="true"] {
+  background: var(--tint);
+  color: var(--ink)
+}
+
+/* The open project's tab (.at) wraps its label (.atl) and a close button (.x) */
+.at {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  background: var(--tint)
+}
+
+.atl {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.x {
+  color: var(--mute);
+  font-size: 16px;
+  line-height: 1.3
+}
+
+.x:hover {
+  color: var(--ink)
+}
+
+.intro {
+  font: 400 18px/1.55 var(--serif);
+  max-width: 36em;
+  margin: 0
+}
+
+/* ============================================================
+   5. FILTER TAGS (above the experience list)
+   ============================================================ */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0 -9px
+}
+
+.chip {
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mute)
+}
+
+.chip:hover {
+  color: var(--ink)
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--tint);
+  color: var(--ink)
+}
+
+/* ============================================================
+   6. EXPERIENCE TILES (one per job or degree)
+   ============================================================ */
+.tiles {
+  margin-top: 20px
+}
+
+.tile {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 8px 32px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line)
+}
+
+.tile h3 {
+  margin: 0;
+  font: 400 18px/1.3 var(--serif)
+}
+
+.meta {
+  color: var(--mute);
+  font-size: 13.5px
+}
+
+.tile p {
+  margin: 0 0 10px;
+  color: var(--mute);
+  max-width: 46ch
+}
+
+.skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  font-size: 13.5px
+}
+
+/* ============================================================
+   7. ABOUT PANEL (Perspective, Approach, Availability, Contact)
+   ============================================================ */
+.about {
+  margin-top: 4px
+}
+
+.about .tile p {
+  color: var(--ink);
+  margin: 0;
+  max-width: 52ch
+}
+
+.panel a {
+  color: var(--acc)
+}
+
+/* Contact links */
+.links {
+  display: flex;
+  gap: 16px;
+  font-size: 14px
+}
+
+.links a {
+  text-decoration: none
+}
+
+.links a:hover {
+  text-decoration: underline
+}
+
+/* ============================================================
+   8. PROJECT RAIL (right column)
+   ============================================================ */
+.rail {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  padding: 56px 28px 28px;
+  display: flex;
+  flex-direction: column
+}
+
+.rail h2 {
+  margin: 0 0 18px;
+  font: 400 18px/1.3 var(--serif)
+}
+
+/* Clear button next to the rail heading when a filter is active */
+.clr {
+  font: 500 13px "Instrument Sans", system-ui, sans-serif;
+  color: var(--acc);
+  margin-left: 8px
+}
+
+/* One project in the list */
+.art {
+  display: block;
+  width: 100%;
+  padding: 8px 0 8px 16px;
+  border-left: 2px solid var(--line);
+  transition: border-color .15s
+}
+
+.art .t {
+  display: block;
+  font: 400 16px/1.35 var(--serif);
+  color: var(--mute);
+  transition: color .15s
+}
+
+/* Summary line under the title, cut off after 2 lines */
+.art .tg {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 12.5px;
+  color: var(--mute)
+}
+
+.art:hover .t,
+.art[aria-current="true"] .t {
+  color: var(--ink)
+}
+
+.art[aria-current="true"] {
+  border-color: var(--acc);
+  background: var(--atint);
+  border-radius: 0 6px 6px 0
+}
+
+/* Credit line pinned to the bottom of the rail */
+.by {
+  margin-top: auto;
+  padding-top: 32px;
+  font-size: 12.5px;
+  color: var(--mute);
+  text-align: right
+}
+
+.by a {
+  color: inherit;
+  text-underline-offset: 3px
+}
+
+.by a:hover {
+  color: var(--acc)
+}
+
+/* ============================================================
+   9. ARTICLE VIEW (a project opened from the rail)
+   ============================================================ */
+.artview {
+  animation: in .25s ease;
+  max-width: 640px
+}
+
+/* Fade-in when an article opens */
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(4px)
+  }
+}
+
+.artview h2 {
+  font: 400 30px/1.2 var(--serif);
+  margin: 0 0 10px;
+  letter-spacing: -.01em;
+  outline: 0
+}
+
+.artview .sum {
+  font-size: 17px;
+  color: var(--mute);
+  margin: 0 0 20px;
+  max-width: 48ch
+}
+
+/* Details row under the title: Year, Topics, Tools */
+.det {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin: 0 0 24px;
+  padding: 14px 0;
+  border-block: 1px solid var(--line)
+}
+
+.det div {
+  min-width: 90px
+}
+
+.det dt {
+  font-size: 12.5px;
+  color: var(--mute)
+}
+
+.det dd {
+  margin: 0;
+  font-size: 14px
+}
+
+/* Article body: section headings, paragraphs, figures, captions */
+.artview h3 {
+  font: 400 18px/1.3 var(--serif);
+  margin: 26px 0 6px
+}
+
+.artview p {
+  margin: 0
+}
+
+.artview p+p {
+  margin-top: 16px
+}
+
+.artview figure {
+  margin: 28px 0 0
+}
+
+.artview figure+p {
+  margin-top: 28px
+}
+
+.artview figcaption {
+  font-size: 13px;
+  color: var(--mute);
+  margin-top: 8px
+}
+
+/* Images (cover and figures) fill the article width */
+.artview img {
+  display: block;
+  width: 100%;
+  height: auto
+}
+
+.cover {
+  border-radius: 8px
+}
+
+/* Previous / Next links at the bottom of an article */
+.pn {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line)
+}
+
+.pn button {
+  max-width: 48%;
+  font: 400 16px/1.35 var(--serif)
+}
+
+.pn .r {
+  text-align: right;
+  margin-left: auto
+}
+
+.pn small {
+  display: block;
+  font: 500 12.5px "Instrument Sans", sans-serif;
+  color: var(--mute)
+}
+
+.pn button:hover {
+  color: var(--acc)
+}
+
+/* ============================================================
+   10. RESPONSIVE & ACCESSIBILITY
+   ============================================================ */
+/* Tablets and phones: the rail moves below the content */
+@media (max-width: 900px) {
+  .wrap {
+    display: block
+  }
+
+  main {
+    padding: 32px 24px 16px
+  }
+
+  .rail {
+    position: static;
+    height: auto;
+    border-top: 1px solid var(--line);
+    padding: 32px 24px 40px
+  }
+
+  .tile {
+    grid-template-columns: 1fr
+  }
+}
+
+/* Turn off animation for people who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .artview {
+    animation: none
+  }
+}
+</style>
+</head>
+<body>
+<!-- PAGE: two columns. <main> is the left column, <nav class="rail"> is the right. -->
+<div class="wrap">
+
+<!-- LEFT COLUMN. Most of this is filled in by the script at the bottom of the file. -->
+<main>
+  <div><h1>Colleen Fulton</h1><p class="role">Product Design Engineer</p></div>
+
+  <!-- Tabs (Experience, About, open project): built by render() -->
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <p class="intro" id="intro">Designing products that make complex tasks feel simple.</p>
+
+  <!-- EXPERIENCE: filter tags + tiles, both built from the EXP list in the script -->
+  <section class="panel" id="exp">
+    <div class="chips" id="chips" role="group" aria-label="Filter by discipline"></div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <!-- ABOUT: plain HTML. Edit the text directly here. -->
+  <section class="panel about" id="about" hidden>
+    <div class="tile"><h3>Perspective</h3><p>What is complex to build does not have to be complex to use. I started as a mechanical engineer, and designing how people experience a product changed how I built it. Engineering and design are two sides of the same coin, and I make decisions informed by both.</p></div>
+    <div class="tile"><h3>Approach</h3><p>I refine technical systems into intuitive user workflows. I study how people use a product, find where they struggle, and revise until the system absorbs the complexity instead of the user.</p></div>
+    <div class="tile"><h3>Availability</h3><p>I am completing my Masters in Computer Science at Georgia Tech remotely, please reach out to discuss availability.</p></div>
+    <div class="tile"><h3>Contact</h3><p class="links"><a href="https://www.linkedin.com/in/colleenfulton" target="_blank" rel="noopener">LinkedIn</a></p></div>
+  </section>
+
+  <!-- ARTICLE: filled in by article() when a project is opened -->
+  <section class="panel" id="art" hidden></section>
+</main>
+
+<!-- RIGHT COLUMN: project list, built from the ARTS list in the script -->
+<nav class="rail" aria-label="Projects">
+  <h2 id="count"></h2>
+  <div id="arts"></div>
+  <p class="by">Designed with <a href="#/portfolio">Claude Design</a></p>
+</nav>
+</div>
+
+<script>
+// ============================================================
+// DATA: edit the content of the site here
+// ============================================================
+
+// Filter tags. Order here is the order of the chips on the page.
+const TAGS = ["mechanical", "software", "robotics", "design", "ai"];
+// Display names for tags. Only "ai" needs one; others are just capitalized.
+const L = t => t === "ai" ? "AI workflows" : t,
+  lab = t => cap(L(t));
+
+// EXPERIENCE entries, newest first. Fields:
+//   r = role/degree   c = organization   y = years   d = one-line description
+//   s = skills shown under it, each as [label, [tags it belongs to]]
+// A skill only shows when the active filter tag is in its list.
+const EXP = [{
+  r: "Mechanical Engineer II",
+  c: "SharkNinja",
+  y: "2026 to now",
+  d: "Supporting next generation of automated espresso machines from concept through mass production.",
+  s: [
+    ["Performance Testing", ["mechanical"]],
+    ["Automation", ["mechanical", "robotics", "software"]],
+    ["Claude", ["ai", "software"]],
+    ["CAD", ["mechanical"]]
+  ]
+}, {
+  r: "UI Designer, Contractor",
+  c: "Autodesk",
+  y: "2025",
+  d: "Designed an application for the Autodesk Robotics Lab, contributing to research in human-robot interaction.",
+  s: [
+    ["Interface design", ["design"]],
+    ["Cursor", ["ai", "software", "design"]],
+    ["Robotics", ["robotics", "software"]],
+    ["CAD", ["mechanical"]]
+  ]
+}, {
+  r: "M.S. Computer Science",
+  c: "Georgia Tech",
+  y: "2024 to 2027",
+  d: "Focused in Human-Computer Interaction.",
+  s: [
+    ["HCI", ["design"]],
+    ["Algorithms", ["software"]],
+    ["Robotics", ["robotics"]]
+  ]
+}, {
+  r: "Independent Contractor",
+  c: "Self-employed",
+  y: "2023 to 2024",
+  d: "Engineering and design work for independent clients, including automated agricultural equipment and mobile software design.",
+  s: [
+    ["Mechanical design", ["mechanical"]],
+    ["CAD", ["mechanical"]],
+    ["Interface design", ["design"]]
+  ]
+}, {
+  r: "Mechanical Engineer",
+  c: "DEKA Research",
+  y: "2021 to 2023",
+  d: "Led the development of a medical product from concept to FDA submission.",
+  s: [
+    ["Project Coordination", ["mechanical"]],
+    ["CAD", ["mechanical"]],
+    ["Performance Testing", ["mechanical"]],
+    ["Automation", ["mechanical", "software", "robotics"]]
+  ]
+}, {
+  r: "B.S. Mechanical Engineering",
+  c: "Rose-Hulman",
+  y: "2017 to 2021",
+  d: "Focused in Robotics Engineering.",
+  s: [
+    ["Robotics", ["robotics"]],
+    ["Mechanical design", ["mechanical"]],
+    ["Mechatronics", ["mechanical", "robotics"]],
+    ["CAD", ["mechanical"]]
+  ]
+}];
+
+// Figures for articles. Each image file sits in the same folder as this page.
+const WORKFLOW_FIG = `<figure><img src="workflow.svg" alt="Diagram of my design workflow with Claude" loading="lazy"><figcaption></figcaption></figure>`;
+const FILTERING_FIG = `<figure><img src="filtering.svg" alt="Diagram showing exposed vs filtered tags" loading="lazy"><figcaption></figcaption></figure>`;
+
+// PROJECTS (shown in the right rail). Fields:
+//   id = URL name (#/portfolio)   n = short name (tab label)   t = title   tg = tags
+//   m = one-line summary (rail + under the title)   y = year   tl = tools
+//   c = cover image file (optional)
+//   b = body, a list of [heading, text]. text can be one string or a list of
+//       paragraphs. A string starting with "<figure" is inserted as-is (use it for images).
+const ARTS = [{
+  id: "portfolio",
+  n: "Portfolio workflow",
+  t: "Designing a portfolio with Claude",
+  tg: ["design", "ai"],
+  m: "An overview of how AI tools were utilized in my workflow.",
+  y: "2026",
+  tl: "Claude Design, Figma",
+  c: "cover-simple.svg",
+  b: [
+    ["The problem", "I needed a portfolio that captured a broad range of experience and showed how each step built on the last."],
+    ["The workflow", ["I used Claude Design to turn my Figma wireframes into medium-fidelity mockups, then worked through filtering concepts and formatting adjustments in iterative rounds.", WORKFLOW_FIG]],
+    ["Design decisions", ["<strong>Filtering to show range.</strong> I wanted visitors to be able to highlight specific topics as a way to show recurring skills across my career. I started with a standard dropdown filter because it's a recognizable feature, however, nothing prompts a visitor to use it when all the content is already visible. Surfacing the filters as tags above my experience makes them visible & quick to use. The visitor can easily filter by skill across both my experience and my projects.", FILTERING_FIG, "<strong>Airy and minimal.</strong> Because I want to keep growing this platform, I balanced the technical content with a light, minimal design. Large margins and a centered main view keep the content from feeling crowded, and projects close automatically when another tab is selected so the page stays uncluttered."]],
+    ["Where Claude missed", "Claude interpreted my filtering idea differently than I intended, which took several rounds of tuning. Because each prompt was handled on its own, priorities I set earlier faded unless I restated them, so I was constantly having to mention the features that mattered most."],
+    ["What I would do differently", "Moving forward, I will start with a design document. One place to record and reference the project’s rules, so the features that matter most do not have to be rebalanced in every prompt."]
+  ]
+}];
+
+// ============================================================
+// HELPERS & STATE
+// ============================================================
+
+// $ = shortcut for document.querySelector, cap = capitalize
+const $ = s => document.querySelector(s),
+  cap = s => s[0].toUpperCase() + s.slice(1);
+// The two fixed tabs: [id, label]
+const FIXED = [
+  ["exp", "Experience"],
+  ["about", "About"]
+];
+// State: tag = active filter (or null), view = current page ("exp", "about", or a project id),
+// user = true right after a click, so render() knows to move focus
+let tag = null,
+  view = "exp",
+  user = false;
+// cur() = the open project (or undefined). list() = projects matching the active filter.
+const cur = () => ARTS.find(a => a.id === view),
+  list = () => ARTS.filter(x => !tag || x.tg.includes(tag));
+
+// ============================================================
+// ROUTING: the URL hash controls what is showing (#/portfolio?tag=ai)
+// ============================================================
+
+// URL -> state
+function parse() {
+  const [h, q] = location.hash.slice(1).split("?");
+  const p = h.replace(/^\//, "");
+  tag = new URLSearchParams(q || "").get("tag");
+  if (!TAGS.includes(tag)) tag = null;
+  view = FIXED.some(f => f[0] === p) || ARTS.some(a => a.id === p) ? p : "exp";
+}
+
+// Change view and/or tag, then update the URL (which triggers a redraw)
+function go(v, t) {
+  if (v !== undefined) view = v;
+  if (t !== undefined) tag = t;
+  user = true;
+  const h = "#/" + (view === "exp" ? "" : view) + (tag ? "?tag=" + tag : "");
+  if (location.hash === h) render();
+  else location.hash = h;
+}
+
+// ============================================================
+// RENDERING: each function rebuilds one part of the page
+// ============================================================
+
+// Filter chips
+function chips() {
+  $("#chips").innerHTML = ["all", ...TAGS].map(t => `<button class="chip" data-t="${t}" aria-pressed="${(tag||"all")===t}">${lab(t)}</button>`).join("");
+}
+
+// Experience tiles (filtered by the active tag)
+function tiles() {
+  $("#tiles").innerHTML = EXP.map(e => {
+    const sk = e.s.filter(x => !tag || x[1].includes(tag));
+    if (!sk.length) return "";
+    return `<div class="tile"><div><h3>${e.r}</h3><div class="meta">${e.c}, ${e.y}</div></div><div><p>${e.d}</p><ul class="skills">${sk.map(x=>`<li>${x[0]}</li>`).join("")}</ul></div></div>`
+  }).join("");
+}
+
+// Project rail (filtered by the active tag)
+function arts() {
+  const l = list();
+  $("#count").innerHTML = tag ? `${l.length} ${l.length==1?"project":"projects"} in ${L(tag)} <button class="clr" data-clr>Clear</button>` : "Projects";
+  $("#arts").innerHTML = l.map(x => `<button class="art" data-id="${x.id}" aria-current="${view===x.id}"><span class="t">${x.t}</span><span class="tg">${x.m}</span></button>`).join("");
+}
+
+// Open project: title, details row, cover image, body sections, previous/next
+function article(a) {
+  const l = list().some(x => x.id === a.id) ? list() : ARTS,
+    i = l.findIndex(x => x.id === a.id),
+    p = l[i - 1],
+    n = l[i + 1];
+  $("#art").innerHTML = `<article class="artview"><h2 tabindex="-1">${a.t}</h2><p class="sum">${a.m}</p>
+ <dl class="det">${[["Year",a.y],["Topics",a.tg.map(lab).join(", ")],["Tools",a.tl]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+ ${a.c?`<img class="cover" src="${a.c}" alt="${a.t} cover" loading="lazy">`:""}
+ ${a.b.map(([h,t])=>`<h3>${h}</h3>${[].concat(t).map(x=>x.startsWith("<figure")?x:`<p>${x}</p>`).join("")}`).join("")}
+ <nav class="pn" aria-label="More projects">${p?`<button data-id="${p.id}"><small>Previous</small>${p.t}</button>`:"<span></span>"}${n?`<button class="r" data-id="${n.id}"><small>Next</small>${n.t}</button>`:"<span></span>"}</nav></article>`;
+}
+
+// Redraw everything for the current state
+function render() {
+  const a = cur();
+  $("#tabs").innerHTML = FIXED.map(([k, l]) => `<button role="tab" tabindex="${view===k?0:-1}" aria-selected="${view===k}" data-tab="${k}">${l}</button>`).join("") + (a ? `<span class="at"><button class="atl" role="tab" aria-selected="true" data-tab="${a.id}">${a.n}</button><button class="x" data-close aria-label="Close project">×</button></span>` : "");
+  $("#intro").hidden = !!a;
+  ["exp", "about", "art"].forEach(id => $("#" + id).hidden = id !== (a ? "art" : view));
+  chips();
+  tiles();
+  arts();
+  if (a) article(a);
+  document.title = a ? a.t + ", Colleen Fulton" : "Colleen Fulton, Product Design Engineer";
+  // After a click: jump to the top and move keyboard focus to the new content
+  if (user) {
+    user = false;
+    window.scrollTo(0, 0);
+    const f = a ? $("#art h2") : $('#tabs [aria-selected="true"]');
+    if (f) f.focus({
+      preventScroll: true
+    });
+  }
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+
+// One click listener for every button, routed by its data- attribute
+document.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  const d = b.dataset;
+  if (d.close !== undefined) return go("exp");
+  if (d.tab) return go(d.tab);
+  if (d.t) return go(undefined, d.t === "all" || d.t === tag ? null : d.t);
+  if (d.clr !== undefined) return go(undefined, null);
+  if (d.id) return go(d.id === view ? "exp" : d.id);
+});
+// Keyboard: Escape closes a project, arrow keys move between tabs
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && cur()) return go("exp");
+  const t = e.target.closest && e.target.closest('#tabs [role="tab"]');
+  if (t && (e.key === "ArrowRight" || e.key === "ArrowLeft")) {
+    const bs = [...document.querySelectorAll('#tabs [role="tab"]')],
+      i = bs.indexOf(t) + (e.key === "ArrowRight" ? 1 : -1);
+    bs[(i + bs.length) % bs.length].click();
+  }
+});
+// Back/forward buttons and edited URLs
+addEventListener("hashchange", () => {
+  parse();
+  render();
+});
+// First draw when the page loads
+parse();
+render();
+</script>
+</body>
+</html>
