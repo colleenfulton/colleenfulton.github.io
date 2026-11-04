@@ -525,7 +525,7 @@ h1 {
     <div class="tiles" id="tiles"></div>
   </section>
 
-  <!-- ABOUT: plain HTML. Edit the text directly here. -->
+  <!-- ABOUT: HTML -->
   <section class="panel about" id="about" hidden>
     <div class="tile"><h3>Perspective</h3><p>What is complex to build does not have to be complex to use. I started as a mechanical engineer, and designing how people experience a product changed how I built it. Engineering and design are two sides of the same coin, and I make decisions informed by both.</p></div>
     <div class="tile"><h3>Approach</h3><p>I refine technical systems into intuitive user workflows. I study how people use a product, find where they struggle, and revise until the system absorbs the complexity instead of the user.</p></div>
@@ -547,7 +547,7 @@ h1 {
 
 <script>
 // ============================================================
-// DATA: edit the content of the site here
+// DATA: site content
 // ============================================================
 
 // Filter tags. Order here is the order of the chips on the page.
@@ -640,7 +640,7 @@ const ARTS = [{
   id: "portfolio",
   n: "Portfolio workflow",
   t: "Designing a portfolio with Claude",
-  tg: ["design", "ai"],
+  tg: ["design", "ai", "software"],
   m: "How I used Claude Design to turn Figma wireframes into a working portfolio.",
   y: "2026",
   tl: "Claude Design, Figma",
@@ -661,7 +661,7 @@ const ARTS = [{
   y: "2026",
   tl: "Figma, Claude Code",
   b: [
-    ["The problem", "Wearable health data is often split across separate cards and scores, which hides how the metrics affect each other. I wanted to explore whether an embedded network graph could reveal those relationships directly, letting someone see how a metric connect and get details on demand about the lifestyle changes that could influence it."],
+    ["The problem", "Wearable health data is often split across separate cards and scores, which hides how the metrics affect each other. I wanted to explore whether an embedded network graph could reveal those relationships directly and enable user to access to focused insights. "],
     ["The workflow", "I am building this in two stages. Exploring the interface in Figma first, deciding which metrics become nodes and how the detail panels behaves on hover. Then I am planning to use Claude Code to turn the design into a working prototype that runs locally and pulls data from my own Oura Ring through the Oura API."],
     ["Where it stands", "<strong>This project is in progress.</strong> The next steps are to finish the data connection, refine how the graph handles real values, and test whether people can read the relationships without explanation."]
   
